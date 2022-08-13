@@ -158,7 +158,7 @@ class HashTable {
     for (let i = 0; i < Math.min(key.length, 50); i++) {
       const char = key[i];
       const value = char.charCodeAt(0);
-      hash = hash * PRIME_NUM + value;
+      hash *= PRIME_NUM + value;
     }
     return hash % this.keyArr.length;
   }
@@ -243,7 +243,7 @@ class HashTable {
   djb2(key) {
     let hash = 5381;
     for (let i = 0; i < key.length; i++) {
-      hahs = hash * 33 + key.charCodeAt(i);
+      hash = hash * 33 + key.charCodeAt(i);
     }
     return hash % size;
   }
