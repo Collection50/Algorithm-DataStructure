@@ -9,7 +9,7 @@
 - **_노드 + 간선_** 으로 이뤄져있음 (Node + Edge)
 - 노드 간 **_계층적인 구조_** 로 이뤄져있음(부모, 자식)
 - 리스트 === 선형 자료구조 (linear)
-- 트리 === 비선형 자료구조 (포인터, nonlinear)
+- 트리 === 비선형 자료구조 (포인터, non-linear)
 - 하지만 단일 연결 리스트 == 트리의 종류로 볼 수 있음(like 사향 트리(skew tree))
 
 ## 특징
@@ -44,7 +44,7 @@
 - `search(value)`: 노드 탐색
 - `remove(value)`: 노드 삭제
 - `BFS()`: 너비를 우선하여 노드 탐색
-- 아래는 `DFS` 종류 (깊이 우선 탐색)
+- `DFS` 종류 (깊이 우선 탐색)
 - `preorder()`: 전위 순회(root node 먼저 탐색)
 - `postorder()`: 후위 순회(맨 마지막에 root node 탐색)
 - `inorder()`: 중위 순회(중간에 root node 탐색)
@@ -133,28 +133,40 @@ class BinarySearchTree {
 
   insert(value) {
     const newNode = new Node(value);
+
     if (!this.root) this.root = newNode;
     else {
       let current = this.root;
+
       while (current.value !== value) {
         if (current.value < value) {
-          if (!current.right) current.right = newNode;
+          if (!current.right) {
+            current.right = newNode;
+          }
           current = current.right;
         } else {
-          if (!current.left) current.left = newNode;
+          if (!current.left) {
+            current.left = newNode;
+          }
           current = current.left;
         }
       }
     }
+
     return this;
   }
 
   search(value) {
     let current = this.root ? this.root : null;
+
     while (current) {
-      if (current.value < value) current = current.right;
-      else if (current.value > value) current = current.left;
-      else return current;
+      if (current.value < value) {
+        current = current.right;
+      } else if (current.value > value) {
+        current = current.left;
+      } else {
+        return current;
+      }
     }
     return null;
   }
@@ -177,15 +189,16 @@ class BinarySearchTree {
     }
     if (value < node.value) {
       node.left = this.removeNode(node.left, value);
-    }
-    if (value > node.value) {
+    } else {
       node.right = this.removeNode(node.right, value);
     }
+
     return node;
   }
 
   getMinNode(node) {
     let current = node;
+
     while (current.left) {
       current = current.left;
     }
@@ -224,6 +237,7 @@ class BinarySearchTree {
   postorder() {
     const visited = [];
     let current = this.root;
+
     const traverse = function (node) {
       if (node.left) traverse(node.left);
       if (node.right) traverse(node.right);
@@ -235,11 +249,12 @@ class BinarySearchTree {
 
   inorder() {
     const visited = [];
-    let current = this.root;
+    const current = this.root;
+
     const traverse = function (node) {
-      node.left && traverse(node.left);
+      if (node.left) traverse(node.left);
       visited.push(node.value);
-      node.right && traverse(node.right);
+      if (node.right) traverse(node.right);
     };
 
     traverse(current);
