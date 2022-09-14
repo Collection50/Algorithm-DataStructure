@@ -14,7 +14,6 @@
 
 ## 구현 메서드
 
-- `getParent(x)`: 최상위 부모 노드를 찾는 재귀 함수
 - `union(x, y)`: 두 개의 노드를 같은 부모 노드로 병합
 - `find(x, y)`: 2개의 노드가 같은 그래프에 속했는지 가졌는지 확인하는 함수 (경로 압축 포함)
 
@@ -27,8 +26,8 @@ class UnionFind {
   }
 
   union(x, y) {
-    const node1 = this.getParent(x);
-    const node2 = this.getParent(y);
+    const node1 = this.find(x);
+    const node2 = this.find(y);
 
     if (node1 < node2) {
       this.parent[node2] = node1;
@@ -47,7 +46,7 @@ class UnionFind {
 
 - `unionByRank(x, y)`: `union(x, y)`과 동일하지만, 트리 높이 최적화
 - 최적화 && 경로 압축을 통해 시간 복잡도 단축
-- 시간 복잡도 **O(a(N))**으로, 상수 시간과 동일한 수준으로 빠름
+- 시간 복잡도 **O(a(N))** 으로, 상수 시간과 동일한 수준으로 빠름
 
 ## Implementation 2
 
@@ -55,7 +54,7 @@ class UnionFind {
 class UnionFind {
   constructor(size) {
     this.parent = Array.from({ length: size }, (_, i) => i);
-    this.rank = Array.from({ length: size }, (_, i) => i);
+    this.rank = Array.from({ length: size }, () => 1);
   }
 
   find(x) {
@@ -63,8 +62,8 @@ class UnionFind {
   }
 
   unionByRank(x, y) {
-    const node1 = this.getParent(x);
-    const node2 = this.getParent(y);
+    const node1 = this.find(x);
+    const node2 = this.find(y);
 
     if (node1 === node2) return;
 
@@ -74,7 +73,9 @@ class UnionFind {
       this.parent[node1] = node2;
     }
 
-    if (this.rank[node1] === this.rank[node2]) ++this.rank[node1];
+    if (this.rank[node1] === this.rank[node2]) {
+      ++this.rank[node1];
+    }
   }
 }
 ```
