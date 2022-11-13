@@ -6,7 +6,7 @@
 
 - `N`개의 수 중 `R`개를 뽑는 경우의 수
 - 순서 상관 없음
-- 즉, 순서가 달라도 구성요소가 같다면 같은 것으로 취급 [순열과 다름]()
+- 즉, 순서가 달라도 구성요소가 같다면 같은 것으로 취급 [순열과 다름](https://github.com/Collection50/Algorithm-DataStructure/blob/master/Permutation.md)
 - 이항계수와 동일한 개념
 
 ## 특징
