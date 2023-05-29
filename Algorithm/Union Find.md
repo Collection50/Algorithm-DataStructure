@@ -26,18 +26,21 @@ class UnionFind {
   }
 
   union(x, y) {
-    const node1 = this.find(x);
-    const node2 = this.find(y);
+    const rortX = this.find(x);
+    const rootY = this.find(y);
 
-    if (node1 < node2) {
-      this.parent[node2] = node1;
+    if (rortX < rootY) {
+      this.parent[rootY] = rortX;
     } else {
-      this.parent[node1] = node2;
+      this.parent[rortX] = rootY;
     }
   }
 
   find(x) {
-    return this.parent[x] === x ? x : this.find(this.parent[x]);
+    if (this.parent[x] === x) {
+      return x;
+    }
+    return this.find(this.parent[x]);
   }
 }
 ```
@@ -58,23 +61,26 @@ class UnionFind {
   }
 
   find(x) {
-    return this.parent[x] === x ? x : this.find(this.parent[x]);
+    if (this.parent[x] === x) {
+      return x;
+    }
+    return this.find(this.parent[x]);
   }
 
   unionByRank(x, y) {
-    const node1 = this.find(x);
-    const node2 = this.find(y);
+    const rootX = this.find(x);
+    const rootY = this.find(y);
 
-    if (node1 === node2) return;
-
-    if (this.rank[node1] > this.rank[node2]) {
-      this.parent[node2] = node1;
-    } else {
-      this.parent[node1] = node2;
+    if (rootX === rootY) {
+      return;
     }
 
-    if (this.rank[node1] === this.rank[node2]) {
-      ++this.rank[node1];
+    if (this.rank[rootX] > this.rank[rootY]) {
+      this.parent[rootY] = rootX;
+    } else if (this.rank[rootX] === this.rank[rootY]) {
+      this.parent[rootX] = rootY;
+    } else {
+      ++this.rank[rootX];
     }
   }
 }
